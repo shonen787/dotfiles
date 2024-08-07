@@ -9,8 +9,10 @@ return {
 	},
 	config = function()
 		vim.keymap.set("n", "<C-n>", ":Neotree filesystem reveal left<CR>")
+
 		-- Setup Neotree with event handler to close on file open
 		require("neo-tree").setup({
+			enable_git_status = true,
 			event_handlers = {
 				{
 					event = "file_opened",
@@ -19,6 +21,12 @@ return {
 						require("neo-tree.command").execute({ action = "close" })
 					end,
 				},
+        {
+          event = "file_open_requested",
+          handler = function ()
+            require("neo-tree.command").execute({action = "close"})
+          end
+        },
 				{
 					event = "neo_tree_buffer_enter",
 					handler = function()
@@ -28,7 +36,7 @@ return {
 				{
 					event = "neo_tree_buffer_leave",
 					handler = function()
-						vim.cmd("highlight! Cursor guibg=#5f87af blend=0")
+						vim.cmd("highlight! Cursor guibg=#ffffff blend=0")
 					end,
 				},
 			},
@@ -39,6 +47,7 @@ return {
 					hide_gitignored = true,
 				},
 			},
+			window = { mappings = { ["<CR>"] = "open_tabnew" } },
 		})
 	end,
 }

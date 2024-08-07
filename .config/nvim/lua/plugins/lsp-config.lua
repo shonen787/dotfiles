@@ -15,7 +15,8 @@ return {
 					"rust_analyzer",
 					"pyright",
           "lemminx",
-				},
+				  "gopls",
+        },
 			})
 		end,
 	},
@@ -42,6 +43,11 @@ return {
 				capabilities = capabilities
 			})
 			lspconfig.lemminx.setup({
+
+				capabilities = capabilities
+			})
+
+			lspconfig.gopls.setup({
 
 				capabilities = capabilities
 			})
